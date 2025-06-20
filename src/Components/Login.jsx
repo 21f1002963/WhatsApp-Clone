@@ -41,23 +41,21 @@ function Login() {
   return (
     <>
     <div className="h-[180px] bg-primary">
-      <div className='flex ml-[200px] pt-[40px] items-center gap-[16px] font-bold'>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1022px-WhatsApp.svg.png" alt="WhatsApp" className='w-8' />
-        <div className="text-white">WHATSAPP</div>
+      <div className='flex ml-[200px] pt-[40px] items-center gap-[16px] font-bold text-3xl'>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1022px-WhatsApp.svg.png" alt="WhatsApp" className='w-10' />
+        <div className="text-white tracking-wide">WhatsApp</div>
       </div>
     </div>
     
     <div className="h-[calc(100vh-180px)] bg-[#eff2f5] flex justify-center items-center relative">
-      <div className="h-[95%] w-[50%] bg-white shadow-2xl flex flex-col justify-center items-center gap-[16px] absolute -top-[90px]">
-        <Fingerprint className="w-[64px] h-[64px] text-primary" strokeWidth='1'/>
-        <div className='font-bold text-[25px]'>Sign In</div>
-        <div className='text-[15px] opacity-50'>Sign in with your Google Account</div>
+      <div className="h-[95%] w-[50%] bg-white shadow-2xl flex flex-col justify-center items-center gap-[24px] absolute -top-[90px] rounded-xl p-8">
+        <Fingerprint className="w-[80px] h-[80px] text-primary mb-2" strokeWidth='1'/>
+        <div className='font-extrabold text-2xl mb-1'>Sign In</div>
+        <div className='text-lg opacity-70 mb-2'>Sign in with your Google Account</div>
 
-        <button onClick={handleLogin} className='flex items-center gap-[8px] bg-primary text-white px-[16px] py-[8px] rounded-[8px]'>
-          <div>
-            Sign in with Google
-          </div> 
-          <LogIn/>
+        <button onClick={handleLogin} className='flex items-center gap-[12px] bg-primary text-white px-[24px] py-[12px] rounded-lg text-lg font-semibold shadow hover:bg-primaryDense transition'>
+          <span>Sign in with Google</span>
+          <LogIn className="w-6 h-6"/>
         </button>
       </div>
     </div>
