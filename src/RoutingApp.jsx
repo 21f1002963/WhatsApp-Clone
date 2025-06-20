@@ -9,18 +9,17 @@ import Protected_Route from './Components/ProtectedRoute'
 function RoutingApp() {
   return (
     <>
-    
-        <Routes>
-            <Route path="/" element={<Protected_Route>
-                <Home></Home>
-            </Protected_Route>}></Route>
-            <Route path="/:ID" element={<Protected_Route>
-                <Home></Home>
-            </Protected_Route>}></Route>
-            <Route path="/login" element={<Login ></Login>} />
-        </Routes>
-      </>
-    
+      <Routes>
+        <Route path="/" element={<Protected_Route>
+          <Home></Home>
+        </Protected_Route>}></Route>
+        <Route path="/:ID" element={<Protected_Route>
+          <Home></Home>
+        </Protected_Route>}></Route>
+        <Route path="/login" element={<Login ></Login>} />
+      </Routes>
+    </>
+
   )
 }
 
