@@ -81,28 +81,23 @@ function ChatWindow() {
   if(!ID){
     return (
       <section className="bg-background w-[70%] h-full flex flex-col gap-4 items-center justify-center">
-        <MessageSquareText className="w-28 h-28 text-gray-500"
-        strokeWidth={1.2}>
-        </MessageSquareText>
-  
-        <p className='text-gray-500 text-xl font-bold text-center'>Select a chat 
-          <br />
-          to start messaging</p>
-  
+        <MessageSquareText className="w-28 h-28 text-gray-400 opacity-60" strokeWidth={1.2} />
+        <p className='text-gray-400 text-2xl font-bold text-center opacity-80'>Select a chat <br /> to start messaging</p>
       </section>
     )
   }
   
   return (
-    <section className="bg-background w-[70%] h-full flex flex-col gap-4 items-center justify-center">
-      <div className='h-full w-full flex flex-col bg-chat-bg'>
-        <div className='bg-[#cdd0d2] py-2 px-4 border-r flex items-center  gap-3'>
+    <section className="bg-gradient-to-br from-[#f7fafc] to-[#e3e1db] w-[70%] h-full flex flex-col gap-4 items-center justify-center">
+      <div className='h-full w-full flex flex-col rounded-2xl rounded-tl-none shadow-xl overflow-hidden relative'>
+        {/* Header */}
+        <div className='bg-[#cdd0d2] py-4 px-8 flex items-center gap-4 border-b shadow-sm z-10'>
             <img src={secondUser?.photoURL||"./default_profile.png"}
               alt="Profile"
-              className="w-[50px] h-[50px] rounded-full object-cover"
-            ></img>
+              className="w-[48px] h-[48px] rounded-full object-cover border-2 border-primary shadow"
+            />
             <div>
-            <h3>{secondUser?.name}</h3>
+            <h3 className="font-semibold text-lg text-primaryDense">{secondUser?.name}</h3>
             {
               secondUser?.last_seen && (
                 <p className='text-xs text-neutral-500'>
@@ -111,43 +106,45 @@ function ChatWindow() {
               )
             }
             </div>
-
         </div>
-
-        <div className="flex flex-grow flex-col gap-4 p-6 overflow-y-auto">
-          {messageList.map((msg, index) => (
-            <div key={index} 
-            data-sender={msg?.sender === userData.user_id} 
-            className={`bg-primary-light w-fit rounded-md p-2 shadow-sm  max-w-[400px] break-words ${msg.sender === userData.user_id ? 'ml-auto' : ''} data-[sender == true]:bg-primary-light`}>
-              <div>
-                {msg?.message}
+        {/* Messages */}
+        <div className="flex flex-grow flex-col gap-3 p-6 overflow-y-auto relative z-10" style={{ backgroundImage: "url('/assets/BG.jpg')", backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+          {messageList.map((msg, index) => {
+            const isSent = msg.sender === userData.user_id;
+            return (
+              <div
+                key={index}
+                data-sender={isSent}
+                className={`
+                  ${isSent
+                    ? 'max-w-[60%] min-w-[80px] break-words p-2 mb-2 ml-auto bg-gradient-to-br from-primary to-primaryDense text-white rounded-2xl rounded-br-md shadow-lg hover:scale-[1.03] hover:shadow-xl'
+                    : 'max-w-[40%] min-w-[80px] break-words py-2 px-4 mb-2 bg-white text-gray-800 rounded-2xl rounded-bl-md shadow-md hover:scale-[1.03] border border-primary/10'}
+                  group relative`
+                }
+              >
+                <div className="whitespace-pre-line text-base font-medium">{msg?.message}</div>
+                <p
+                  className={`text-xs mt-2 text-end select-none transition
+                    ${isSent ? 'text-white/70 group-hover:text-white/90' : 'text-gray-400 group-hover:text-primary'}`}
+                >
+                  {msg?.time}
+                </p>
               </div>
-              <p className='text-xs text-neutral-500 text-end'>
-                {msg?.time}
-              </p>
-            </div>
-          ))} 
+            );
+          })}
         </div>
-
-        <div className='bg-background py-3 px-6 shadow flex items-center gap-6'>
-          <PlusIcon></PlusIcon>
-          <input type="text" placeholder="Type a message..." className="w-full py-2 px-4 rounded focus:outline-red"
-          value={message}
-          onChange={(e) => 
-            setMessage(e.target.value)
-          }
-          onKeyDown={(e) => {
-            if(e.key === "Enter"){
-              handleSendMessage();
-            }
-          }}/>
-          <button onClick={handleSendMessage}>
-            <SendIcon></SendIcon>
+        {/* Input */}
+        <div className='bg-background py-4 px-8 shadow flex items-center gap-5 border-t z-10'>
+          <button className="p-2 rounded-full hover:bg-primary/10 transition">
+            <PlusIcon className="w-6 h-6 text-primary" />
+          </button>
+          <input type="text" placeholder="Type a message..." className="w-full py-3 px-5 rounded-xl bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary text-base shadow-inner transition" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => { if(e.key === "Enter"){ handleSendMessage(); } }}/>
+          <button onClick={handleSendMessage} className="p-2 rounded-full bg-primary hover:bg-primaryDense transition shadow text-white">
+            <SendIcon className="w-6 h-6" />
           </button>
         </div>
       </div>
     </section>
-
   )
 }
 
